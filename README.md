@@ -1,4 +1,4 @@
-# netology-homeworks
+# devops-netology
 
-Репозиторий содержит домашние задания по курсу DevOps-инженер от Нетологии
-Источник: https://netology.ru/programs/devops
+Репозиторий содержит результаты выполнения домашних заданий по курсу DevOps-инженер от Нетологии
+Курс: https://netology.ru/programs/devops

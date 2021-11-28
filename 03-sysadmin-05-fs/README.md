@@ -1,6 +1,6 @@
 ### 1. Sparse File  
 Создание `sparse`-файла:  
-```commandline
+```shell
 vagrant@test-netology:~/aaa $
  dd if=/dev/zero of=sparse.file bs=1 count=0 seek=100M
 # bs=BYTES, read and write up to BYTES bytes at a time (default: 512); overrides ibs and obs
@@ -38,7 +38,7 @@ vagrant@test-netology:~/aaa $
 ### 2. Могут ли файлы, являющиеся жесткой ссылкой на один объект, иметь разные права доступа и владельца? Почему?  
 Не могут, так все хардлинки указывают на одну и туже метаинформацию о файле - на `inode`. Если поменять владельца 
 или права доступа файла на одном из множества хардлинков, то информация об этом изменится непосредственно в `inode`:  
-```commandline
+```shell
 root@test-netology:/tmp #
  mkdir -m=777 01 02
 
@@ -116,7 +116,7 @@ end
 ```
 
 ### 4. Используя `fdisk`, разбейте первый диск на 2 раздела: 2 Гб, оставшееся пространство.  
-```commandline
+```shell
 
 root@test-netology:~#
  lsblk 
@@ -185,7 +185,7 @@ Device     Boot   Start     End Sectors  Size Id Type
 
 
 ### 5. Используя `sfdisk`, перенесите данную таблицу разделов на второй диск.  
-```commandline
+```shell
 root@test-netology:~#
  lsblk 
 NAME                 MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT
@@ -252,7 +252,7 @@ Device     Boot   Start     End Sectors  Size Id Type
 
 ### 6. Соберите `mdadm` RAID1 на паре разделов 2 Гб.  
 Создаем RAID1:  
-```commandline
+```shell
 root@test-netology:~#
  mdadm --create /dev/md127 --level 1 --raid-devices 2 --name test-raid1 /dev/sdb1 /dev/sdc1
 mdadm: Note: this array has metadata at the start and
@@ -296,7 +296,7 @@ Consistency Policy : resync
 
 
 ### 7. Соберите `mdadm` RAID0 на второй паре маленьких разделов.
-```commandline
+```shell
 root@test-netology:~#
   mdadm --create /dev/md126 --level 0 --raid-devices 2 --name test-raid0 /dev/sdb2 /dev/sdc2
 mdadm: Defaulting to version 1.2 metadata
@@ -336,7 +336,7 @@ Consistency Policy : none
 
 
 ### 8. Создайте 2 независимых PV на получившихся md-устройствах.  
-```commandline
+```shell
 root@test-netology:~#
  pvcreate /dev/md126
   Physical volume "/dev/md126" successfully created.
@@ -374,7 +374,7 @@ root@test-netology:~#
 
 
 ### 9. Создайте общую volume-group на этих двух PV.  
-```commandline
+```shell
 root@test-netology:~#
  vgcreate vg_common /dev/md126 /dev/md127
   Volume group "vg_common" successfully created
@@ -418,7 +418,7 @@ root@test-netology:~#
 
 
 ### 10. Создайте LV размером 100 Мб, указав его расположение на PV с RAID0.  
-```commandline
+```shell
 root@test-netology:~#
  lvcreate -L 100M -n lv_on_raid0 vg_common /dev/md126
   Logical volume "lv_on_raid0" created.
@@ -452,7 +452,7 @@ root@test-netology:~#
 
 
 ### 11. Создайте `mkfs.ext4` ФС на получившемся LV.  
-```commandline
+```shell
 root@test-netology:~#
  mkfs.ext4 /dev/vg_common/lv_on_raid0 
 mke2fs 1.45.5 (07-Jan-2020)
@@ -466,7 +466,7 @@ Writing superblocks and filesystem accounting information: done
 
 
 ### 12. Смонтируйте этот раздел в любую директорию.  
-```commandline
+```shell
 root@test-netology:~#
  mkdir /raid0folder
 
@@ -490,7 +490,7 @@ vagrant                            1.9T  849G 1015G  46% /vagrant
 
 
 ### 13. Поместите туда тестовый файл  
-```commandline
+```shell
 root@test-netology:~#
  wget -q https://github.com/prometheus/node_exporter/releases/download/v1.3.0/node_exporter-1.3.0.linux-amd64.tar.gz -P /raid0folder
 
@@ -503,7 +503,7 @@ drwx------ 2 root root   16384 Nov 28 20:52 lost+found
 
 
 ### 14. Прикрепите вывод `lsblk`.  
-```commandline
+```shell
 root@test-netology:~#
  lsblk 
 NAME                        MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT
@@ -529,7 +529,7 @@ sdc                           8:32   0  2.5G  0 disk
 
 
 ### 15. Протестируйте целостность файла.
-```commandline
+```shell
 root@test-netology:/raid0folder#
  gzip -t node_exporter-1.3.0.linux-amd64.tar.gz && echo $?
 0
@@ -537,7 +537,7 @@ root@test-netology:/raid0folder#
 
 
 ### 16. Используя pvmove, переместите содержимое PV с RAID0 на RAID1.
-```commandline
+```shell
 root@test-netology:/raid0folder#
  pvmove /dev/md126 /dev/md127
   /dev/md126: Moved: 12.00%
@@ -550,7 +550,7 @@ root@test-netology:/raid0folder#
 
 
 ### 17. Сделайте `--fail` на устройство в вашем RAID1 md.  
-```commandline
+```shell
 root@test-netology:/raid0folder#
  cat /proc/mdstat 
 Personalities : [raid1] [raid0] [linear] [multipath] [raid6] [raid5] [raid4] [raid10] 
@@ -582,7 +582,7 @@ unused devices: <none>
 
 
 ### 18. Подтвердите выводом `dmesg`, что RAID1 работает в деградированном состоянии.
-```commandline
+```shell
 root@test-netology:/raid0folder#
  dmesg -H | tail -n 5
 [  +0.000902] 20:26:07.842661 main     vbglR3GuestCtrlDetectPeekGetCancelSupport: Supported (#1)
@@ -594,7 +594,7 @@ root@test-netology:/raid0folder#
 
 
 ### 19. Протестируйте целостность файла, несмотря на "сбойный" диск он должен продолжать быть доступен:  
-```commandline
+```shell
 root@test-netology:/raid0folder#
  gzip -t node_exporter-1.3.0.linux-amd64.tar.gz && echo $?
 0

@@ -76,6 +76,7 @@ for file in modified_files:
     print(os.popen('ls -l' + ' ' + file).read().rstrip('\n'))
 
 ```
+### Вывод скрипта при запуске при тестировании:
 ```shell
 vagrant@test-netology:~$
  cd netology/sysadm-homeworks/ && git status && cd -

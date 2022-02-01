@@ -216,8 +216,7 @@ root@dbd58fbe2ca1:/usr/share/nginx/html# cat > index.html <<EOF
 >         <h2>I'm DevOps Engineer again!</h1>
 >     </body>
 > </html>
-> 
-bash: warning: here-document at line 2 delimited by end-of-file (wanted `EOF')
+
 root@dbd58fbe2ca1:/usr/share/nginx/html# exit
 exit
 ```
@@ -540,5 +539,3 @@ total 8
 35cc31e14b7d7b054b770b712a0d78e2  /data/file
 d2ab408187c5c9d8c706f74922b3366b  /data/file_new
 ```
-
-### Задача 4 (*)

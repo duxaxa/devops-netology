@@ -113,7 +113,7 @@ vagrant@test-netology:~/docker-build$
 ```
 
 Создаем на хостовой машине [Dockerfile](src/task1/Dockerfile):
-```shell
+```dockerfile
 FROM nginx:1.20.2
 COPY index.html /usr/share/nginx/html
 ```

@@ -1,0 +1,15 @@
+---
+  - name: Installing tools
+    yum:
+      name: "{{ packages }}"
+      state: present
+      update_cache: yes
+    vars:
+      packages:
+        - ntp
+        - python
+        - tcpdump
+        - wget
+        - openssl
+        - curl
+        - git

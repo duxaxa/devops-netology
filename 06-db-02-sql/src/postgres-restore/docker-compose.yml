@@ -1,0 +1,16 @@
+version: "3.9"
+services:
+  postgres:
+    image: "postgres:12.12"
+    container_name: "postgres-12-restore"
+    hostname: "postgres-12-restore"
+    restart: "always"
+    ports:
+      - "5433:5432"
+    volumes:
+      - "/06-db-02-sql/postgres-restore/data:/var/lib/postgresql/data"
+      - "/06-db-02-sql/postgres/backup:/pgbackup"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - POSTGRES_PASSWORD=12345
+      # - POSTGRES_USER=vagrant

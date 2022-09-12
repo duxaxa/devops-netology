@@ -138,7 +138,7 @@
   ![test_db_grantee.png](src/img/test_db_grantee.png)  
 
 
-###Задача 3  
+### Задача 3  
 Используя SQL синтаксис - наполните таблицы следующими тестовыми данными:  
 
 Таблица orders
@@ -193,7 +193,7 @@ INSERT INTO clients (fio, country) VALUES ('Ritchie Blackmore', 'Russia');
   FROM clients;
   ```
 
- ![records_count.png](src/img/records_count.png)
+  ![records_count.png](src/img/records_count.png)
 
 ### Задача 4
 

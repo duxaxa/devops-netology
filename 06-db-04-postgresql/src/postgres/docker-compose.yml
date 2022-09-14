@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  postgres:
+    image: "postgres:13.8"
+    container_name: "postgres-13"
+    hostname: "postgres-13"
+    restart: "always"
+    ports:
+      - "5432:5432"
+    volumes:
+      - "/postgres-db/postgres-13/data:/var/lib/postgresql/data"
+      - "/postgres-db/postgres-13/backup:/pgbackup"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - POSTGRES_PASSWORD=12345

@@ -1,0 +1,5 @@
+ALTER TABLE orders
+ENGINE = MyISAM;
+
+ALTER TABLE orders
+ENGINE = InnoDB;

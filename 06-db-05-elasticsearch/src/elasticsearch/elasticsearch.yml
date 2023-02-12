@@ -1,0 +1,10 @@
+cluster.name: "netology_test-cluster"
+node.name: "netology_test"
+discovery.type: single-node
+network.host: 0.0.0.0
+
+node.master: "true"
+node.data: "true"
+
+path.data: "/var/lib/data"
+path.repo: "/usr/share/elasticsearch/snapshots"

@@ -28,7 +28,10 @@
     ![scripted_pipeline_prod_run_false.png](src/img/scripted_pipeline_prod_run_false.png)
 
     ![scripted_pipeline_prod_run_true.png](src/img/scripted_pipeline_prod_run_true.png)
-8. Отправить ссылку на репозиторий с ролью и Declarative Pipeline и Scripted Pipeline.
+8. Отправить ссылку на репозиторий с ролью и Declarative Pipeline и Scripted Pipeline:
+   **[Declarative Pipeline](https://github.com/duxaxa/lighthouse-role/blob/main/Jenkinsfile)**
+   
+   **[Scripted Pipeline](https://github.com/duxaxa/devops-netology/blob/main/09-ci-04-jenkins/ScriptedJenkinsfile)**
 
 ## Необязательная часть
 

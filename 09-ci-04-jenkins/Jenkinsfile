@@ -1,0 +1,11 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Test Role') {
+            steps {
+                sh 'molecule test'
+            }
+        }
+    }
+}
